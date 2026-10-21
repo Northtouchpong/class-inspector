@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f8f9fb" />
+  <meta name="description" content="Inspect HTML, CSS, JavaScript and ZIP projects for likely class typos and structural issues." />
+  <title>Class Inspector</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div id="app">
+    <header class="topbar">
+      <div class="brand"><span class="brand-mark" aria-hidden="true">{ }</span><span>Class Inspector</span><span class="version">v1.1</span></div>
+      <div class="header-actions"><span class="privacy">Runs locally in your browser</span><button id="themeBtn" class="icon-button" title="Toggle theme" aria-label="Toggle theme">◐</button><button id="exportBtn" class="button quiet" disabled>Export report <span aria-hidden="true">↓</span></button></div>
+    </header>
+    <main class="workspace">
+      <section class="intro"><div><h1>Find class issues, faster.</h1><p>Paste code or inspect a project ZIP. Review potential mistakes before making changes.</p></div><div class="framework-field"><span class="framework-label">Framework coverage</span><span class="framework-static">Bootstrap 3, 4 &amp; 5 · Automatic</span></div></section>
+      <div class="panels">
+        <section class="panel input-panel" aria-label="Source input">
+          <div class="panel-toolbar"><div class="mode-tabs" role="tablist" aria-label="Input mode"><button class="mode-tab selected" id="editorMode" aria-selected="true">Code editor</button><button class="mode-tab" id="zipMode" aria-selected="false">Project ZIP</button></div><span id="inputMeta" class="subtle">Paste source code</span></div>
+          <div id="editorView" class="editor-view"><div class="file-tabs" role="tablist" aria-label="Code files"><button class="file-tab active" data-lang="html">index.html</button><button class="file-tab" data-lang="css">styles.css</button><button class="file-tab" data-lang="js">app.js</button></div><div class="editor-wrap"><div class="line-numbers" id="lineNumbers" aria-hidden="true"></div><textarea id="codeEditor" spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off" aria-label="Source code editor"></textarea></div><div class="editor-footer"><span id="editorDetails">HTML · 1 line</span><button class="link-button" id="sampleBtn">Load sample</button><button class="link-button" id="clearBtn">Clear</button></div></div>
+          <div id="zipView" class="zip-view hidden"><div id="dropzone" class="dropzone" tabindex="0" role="button"><div class="drop-icon">⇧</div><strong>Drop a ZIP project here</strong><p>or click to select a file</p><small>HTML, CSS, JS, JSX and TSX · up to 15 MB ZIP</small><input id="zipFile" type="file" accept=".zip,application/zip" hidden /></div><div id="zipSummary" class="zip-summary hidden"></div><div id="zipFiles" class="zip-files"></div></div>
+          <div class="panel-bottom"><span id="statusText" class="status-text">Ready to inspect</span><button id="analyzeBtn" class="button primary">Analyze code <span aria-hidden="true">→</span></button></div>
+        </section>
+        <section class="panel results-panel" aria-label="Analysis results"><div class="results-top"><div><h2>Inspection results</h2><p id="resultSubtitle">Issues will appear here after analysis.</p></div><span id="runBadge" class="run-badge">Not analyzed</span></div><div id="summary" class="summary hidden"><div><strong id="errorCount">0</strong><span>Errors</span></div><div><strong id="warningCount">0</strong><span>Warnings</span></div><div><strong id="infoCount">0</strong><span>Notes</span></div></div><div id="filters" class="filters hidden"><div class="filter-buttons"><button class="filter active" data-filter="all">All</button><button class="filter" data-filter="error">Errors</button><button class="filter" data-filter="warning">Warnings</button><button class="filter" data-filter="info">Notes</button></div><input id="searchResults" type="search" placeholder="Search issues…" aria-label="Search issues" /></div><div id="resultsList" class="results-list"><div class="empty-state"><div class="empty-icon">⌁</div><strong>No analysis yet</strong><p>Paste your source code or upload a project ZIP, then select Analyze.</p></div></div><div id="resultsFooter" class="results-footer hidden"><span id="resultTotal"></span><span>Always review suggested changes.</span></div></section>
+      </div><footer class="site-footer"><span>Class Inspector · Static and private by default</span><span>No URL scanner in v1</span></footer>
+    </main>
+    <dialog id="detailDialog" class="detail-dialog"><div class="modal-header"><div><span id="detailSeverity" class="severity-label"></span><h2 id="detailTitle">Issue details</h2></div><button id="closeDialog" class="icon-button" aria-label="Close details">×</button></div><p id="detailMessage"></p><div id="detailLocation" class="detail-location"></div><div id="diffBox" class="diff-box hidden"><div class="diff-old" id="diffOld"></div><div class="diff-new" id="diffNew"></div></div><div class="modal-actions"><button id="copyFixBtn" class="button quiet hidden">Copy suggestion</button><button id="applyFixBtn" class="button primary hidden">Apply to draft</button></div></dialog>
+    <div id="toast" class="toast hidden" role="status"></div>
+  </div>
+  <script src="./vendor/jszip.min.js"></script>
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>
